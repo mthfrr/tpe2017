@@ -84,7 +84,7 @@ def makeSound(msg, carDuration, gapDuration, RATE):
          samples.append(F3)
       elif c == '11':
          samples.append(F4)
-      phi = 0
+
       samples.append(Z)
 
    samples = np.concatenate(samples)
@@ -100,6 +100,8 @@ samples = makeSound("Hoche, c'est chouette", carDuration, gapDuration, RATE)
 
 samples = np.concatenate([silence, samples, silence])
 
+
+## emission
 if 1:
    sd.play(samples, RATE, blocking=True)
 
@@ -109,18 +111,12 @@ if 0:
 
 plotSamples(samples)
 
-## emission
-
-## add noise
-if 0:
-   samples = samples + addNormalNoise(.3, samples.size)
-   plotSamples(samples)
-
-if 0:
-   sd.play(samples, RATE, blocking=True)
 
 
 
+#############################################################################################
+#############################################################################################
+#############################################################################################
 
 
 ## demodulation

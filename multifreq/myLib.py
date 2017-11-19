@@ -19,7 +19,7 @@ def unbinarise(binStr):
    print (words)
    msg = []
    for w in words:
-      msg.append(int(w, 2))
+      msg.append(int(w, 2))  # bin to dec
    return (bytes(msg)).decode('utf8')
 
 

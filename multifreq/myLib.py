@@ -22,7 +22,7 @@ def unbinarise(binStr):
       msg.append(int(w, 2))  # bin to dec
    return (bytes(msg)).decode('utf8')
 
-
+### debug
 def addNormalNoise(ampl, length):
    noise = np.random.normal(0, .5, size=length)
    noise = ampl * noise
@@ -30,7 +30,7 @@ def addNormalNoise(ampl, length):
    noise[noise<-1] = -1
    return noise
 
-
+### trouvé sur internet
 def butter_lowpass(cutoff, fs, order=5):
     nyq = 0.5 * fs
     normal_cutoff = cutoff / nyq
@@ -77,7 +77,7 @@ def saveAsWave(fileName, samples, RATE=44100):
    outfile.close()
 
 
-
+### 
 def toDigit4(data, n):
    i = 0
 
@@ -98,7 +98,7 @@ def toDigit4(data, n):
       i += n
    return bitstream
 
-
+### code mort
 def toDigit(data, n):
    """
 data : données à analyser

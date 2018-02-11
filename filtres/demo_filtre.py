@@ -8,6 +8,10 @@ from scipy.signal import filtfilt
 
 swSound = False
 swShow = True
+swShow = False
+
+swNoise = False
+swSinus = False
 
 RATE = 44100
 
@@ -43,17 +47,30 @@ num_samples = 1*RATE
 
 FREQ = 440
 cutoff = FREQ*4.5
+cutoff = FREQ*6.5
 
 
 t = np.linspace(0, 1, num_samples, endpoint=False)
 samples = .5*square(2 * np.pi * FREQ * t)
 
+if swNoise:
+   mean = 0
+   std = 1
+   samples += .2*np.random.normal(mean, std, size=num_samples)
+
+
+if swSinus:
+   print 'toto'
+   freqSin = 2000
+   samples += 1 * np.sin( 2*np.pi * freqSin * t )
 
 plt.plot(samples)
+axes = plt.gca()
+axes.set_xlim(0, 400)
 if swShow:
    plt.show()
 else:
-   plt.savefig("white_noise.png",dpi=200)
+   plt.savefig("signal.png",dpi=200)
    plt.clf()
 
 data = samples
@@ -67,11 +84,12 @@ plt.plot(freq, fft)
 if swShow:
    plt.show()
 else:
-   plt.savefig("white_noise_fft.png",dpi=200)
+   plt.savefig("signal_fft.png",dpi=200)
    plt.clf()
 
 
-import sounddevice as sd
+if swSound:
+   import sounddevice as sd
 
 if swSound:
    sd.play(samples, RATE, blocking=True)
@@ -81,10 +99,12 @@ if swSound:
 
 dataFiltered = butter_lowpass_filter(data, cutoff, RATE, order=5)
 plt.plot(dataFiltered)
+axes = plt.gca()
+axes.set_xlim(0, 400)
 if swShow:
    plt.show()
 else:
-   plt.savefig("white_noise_filtered_800-900.png",dpi=200)
+   plt.savefig("signal_filtered_800-900.png",dpi=200)
    plt.clf()
 
 
@@ -97,7 +117,7 @@ plt.plot(freq, fft)
 if swShow:
    plt.show()
 else:
-   plt.savefig("white_noise_filtered_800-900_fft.png",dpi=200)
+   plt.savefig("signal_filtered_800-900_fft.png",dpi=200)
    plt.clf()
 
 if swSound:
@@ -107,10 +127,12 @@ if swSound:
 
 dataFiltered = butter_highpass_filter(data, cutoff, RATE, order=5)
 plt.plot(dataFiltered)
+axes = plt.gca()
+axes.set_xlim(0, 400)
 if swShow:
    plt.show()
 else:
-   plt.savefig("white_noise_filtered_below_800.png",dpi=200)
+   plt.savefig("signal_filtered_below_800.png",dpi=200)
    plt.clf()
 
 fft = np.abs(np.fft.rfft(dataFiltered))
@@ -119,7 +141,7 @@ plt.plot(freq, fft)
 if swShow:
    plt.show()
 else:
-   plt.savefig("white_noise_filtered_below_800_fft.png",dpi=200)
+   plt.savefig("signal_filtered_below_800_fft.png",dpi=200)
    plt.clf()
 
 

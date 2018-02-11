@@ -8,7 +8,7 @@ import wave
 
 import msvcrt
 
-import sounddevice as sd
+#import sounddevice as sd
 
 from scipy.signal import butter, lfilter, filtfilt, freqz
 
